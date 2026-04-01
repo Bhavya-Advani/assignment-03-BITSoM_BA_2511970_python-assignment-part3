@@ -1,1 +1,11 @@
+--- Triggering Connection Error ---
+Connection error occurred.
 
+
+--- Triggering HTTP 404 Error ---
+HTTP error occurred.
+
+
+--- Error Log Contents ---
+[2026-04-01 17:06:55] ERROR in fetch_products: ConnectionError — ('Connection aborted.', HTTPException("Failed to execute 'send' on 'XMLHttpRequest': Failed to load 'https://this-host-does-not-exist-xyz.com/api'."))
+[2026-04-01 17:06:56] ERROR in lookup_product: HTTPError — 404 Not Found for product ID 999
