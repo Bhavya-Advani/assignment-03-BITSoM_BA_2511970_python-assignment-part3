@@ -97,3 +97,33 @@ Response from server:
 ## Task 3:
 
 
+Error: Cannot divide by zero
+Error: Invalid input types
+File operation attempt complete.
+Topic 1: Variables store data. Python is dynamically typed.
+Topic 2: Lists are ordered and mutable.
+Topic 3: Dictionaries store key-value pairs.
+Topic 4: Loops automate repetitive tasks.
+Topic 5: Exception handling prevents crashes.
+Topic 6: Functions help reuse code.
+Topic 7: Modules organize large programs.
+Error: File 'ghost_file.txt' not found.
+File operation attempt complete.
+
+--- Product Lookup (Simulated Inputs) ---
+
+Input: 1
+Essence Mascara Lash Princess | $9.99
+
+Input: 50
+Black Whisk | $9.99
+
+Input: 999
+Invalid range.
+
+Input: abc
+Invalid input.
+
+Input: quit
+Exiting.
+is this correct output for task 3
