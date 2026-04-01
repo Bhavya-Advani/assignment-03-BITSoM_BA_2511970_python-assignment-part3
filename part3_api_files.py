@@ -1,17 +1,18 @@
 
 
-  def write_file():
+## Task 1 — File Read & Write Basics
+
+def write_file():
     try:
-            with open("python_notes.txt", "w", encoding="utf-8") as file:
+        with open("python_notes.txt", "w", encoding="utf-8") as file:
             file.write("Topic 1: Variables store data. Python is dynamically typed.\n")
             file.write("Topic 2: Lists are ordered and mutable.\n")
             file.write("Topic 3: Dictionaries store key-value pairs.\n")
             file.write("Topic 4: Loops automate repetitive tasks.\n")
             file.write("Topic 5: Exception handling prevents crashes.\n")
-        
+
         print("File written successfully.")
 
-        # Append mode - Adding two custom lines
         with open("python_notes.txt", "a", encoding="utf-8") as file:
             file.write("Topic 6: Functions help reuse code.\n")
             file.write("Topic 7: Modules organize large programs.\n")
@@ -24,40 +25,22 @@
 
 def read_file():
     try:
-        # Part B — Read
         with open("python_notes.txt", "r", encoding="utf-8") as file:
             lines = file.readlines()
 
-        print("\n--- File Content ---")
-
-        # Print numbered lines and strip trailing newlines
         for i, line in enumerate(lines, start=1):
             print(f"{i}. {line.strip()}")
 
-        # Count lines
-        total_lines = len(lines)
-        print(f"\nTotal number of lines: {total_lines}")
-
-        # Keyword search (Case-insensitive)
-        keyword = input("\nEnter a keyword to search: ").strip().lower()
-        matches = [line.strip() for line in lines if keyword in line.lower()]
-
-        print("\n--- Search Results ---")
-        if matches:
-            for match in matches:
-                print(match)
-        else:
-            print(f"No matching lines found for keyword: '{keyword}'")
-
-    except FileNotFoundError:
-        print("Error: The file 'python_notes.txt' does not exist.")
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        print(e)
 
 
 if __name__ == "__main__":
     write_file()
     read_file()
+
+
+
 
 
 
@@ -185,12 +168,6 @@ if __name__ == "__main__":
 
 ## Task 3 — Exception Handling
 
-import requests
-
-
-# -------------------------------
-# Part A — Guarded Calculator
-# -------------------------------
 def safe_divide(a, b):
     try:
         return a / b
@@ -200,16 +177,6 @@ def safe_divide(a, b):
         return "Error: Invalid input types"
 
 
-# Test Part A
-print("\n--- Part A: Safe Divide ---")
-print(safe_divide(10, 2))      # Expected: 5.0
-print(safe_divide(10, 0))      # Expected: Error
-print(safe_divide("ten", 2))   # Expected: Error
-
-
-# -------------------------------
-# Part B — Guarded File Reader
-# -------------------------------
 def read_file_safe(filename):
     try:
         with open(filename, "r", encoding="utf-8") as file:
@@ -220,82 +187,29 @@ def read_file_safe(filename):
         print("File operation attempt complete.")
 
 
-# Test Part B
-print("\n--- Part B: File Reader ---")
-content = read_file_safe("python_notes.txt")
-if content:
-    print(content)
-
-read_file_safe("ghost_file.txt")  # Should fail gracefully
-
-
-# -------------------------------
-# Part C — Robust API Calls
-# -------------------------------
-BASE_URL = "https://dummyjson.com/products"
-
-
-def safe_get(url):
-    try:
-        response = requests.get(url, timeout=5)
-        return response
-    except requests.exceptions.ConnectionError:
-        print("Connection failed. Please check your internet.")
-    except requests.exceptions.Timeout:
-        print("Request timed out. Try again later.")
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-    return None
-
-
-def safe_post(url, data):
-    try:
-        response = requests.post(url, json=data, timeout=5)
-        return response
-    except requests.exceptions.ConnectionError:
-        print("Connection failed. Please check your internet.")
-    except requests.exceptions.Timeout:
-        print("Request timed out. Try again later.")
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-    return None
-
-
-# Example usage (optional test)
-print("\n--- Part C: API Test ---")
-resp = safe_get(BASE_URL + "?limit=5")
-if resp and resp.status_code == 200:
-    print("API working. Fetched products successfully.")
-
-
-# -------------------------------
-# Part D — Input Validation Loop
-# -------------------------------
 def product_lookup():
-    print("\n--- Part D: Product Lookup ---")
+    print("\n--- Product Lookup (Simulated Inputs) ---")
 
-    while True:
-        user_input = input("Enter a product ID to look up (1–100), or 'quit' to exit: ").strip()
+    test_inputs = ["1", "50", "999", "abc", "quit"]
+
+    for user_input in test_inputs:
+        print(f"\nInput: {user_input}")
 
         if user_input.lower() == "quit":
-            print("Exiting program.")
+            print("Exiting.")
             break
 
-        # Validate integer
         if not user_input.isdigit():
-            print("Invalid input. Please enter a number between 1 and 100.")
+            print("Invalid input.")
             continue
 
-        product_id = int(user_input)
+        pid = int(user_input)
 
-        # Validate range
-        if not (1 <= product_id <= 100):
-            print("Invalid range. Please enter a number between 1 and 100.")
+        if not (1 <= pid <= 100):
+            print("Invalid range.")
             continue
 
-        # Make API call
-        url = f"{BASE_URL}/{product_id}"
-        response = safe_get(url)
+        response = safe_get(f"{BASE_URL}/{pid}")
 
         if response is None:
             continue
@@ -304,13 +218,8 @@ def product_lookup():
             print("Product not found.")
         elif response.status_code == 200:
             data = response.json()
-            print(f"Product: {data['title']} | Price: ${data['price']}")
-        else:
-            print(f"Unexpected status code: {response.status_code}")
+            print(f"{data['title']} | ${data['price']}")
 
-
-# Run Part D
-product_lookup()
 
 
 ## Task 4 — Logging to File
